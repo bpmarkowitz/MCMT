@@ -11,4 +11,5 @@ Multi Channel Modifier Tool (MCMT) is a simple tool for the SiliconDust HDHomeRu
 - drag the index.html into your web browser.
 - Follow the directions on your screen.
 
-![screenshot](https://raw.githubusercontent.com/bpmarkowitz/MCMT/master/screenshot.png)
+ <img src="https://raw.githubusercontent.com/bpmarkowitz/MCMT/master/screenshot.png" width="350" alt="screenshot">
+
