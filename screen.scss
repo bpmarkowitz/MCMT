@@ -1,0 +1,84 @@
+html, body {
+	box-sizing: border-box;
+	height: 100%;
+	margin: 0;
+}
+
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+
+body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	line-height: 1.5;
+	font-size: 1.2em;
+	padding: 1.2em;
+}
+
+h1, h2, h3, h4 {
+	margin-top: 0;
+	line-height: 1.1;
+}
+
+h3 {
+	margin-bottom: .3em;
+}
+
+a {
+	color: SlateBlue;
+}
+
+.button {
+	background: green;
+	padding: .6em;
+	border-radius: .3em;
+	color: #fff;
+	text-align: center;
+	margin: .6em 0;
+	cursor: pointer;
+
+	&:hover{
+		background: darkGreen;
+	}
+}
+
+#found {
+	display: none;
+	color: green;
+}
+
+#actions {
+	display: none;
+}
+
+#spinner {
+	margin-left: .3em;
+	display: inline-block;
+	height: .7em;
+	width: .7em;
+	border-radius: .7em;
+	background: none;
+	border: 1px solid black;
+	position: relative;
+	animation: spin 2s infinite linear;
+
+  &:after {    
+		content: " ";
+		position: absolute;
+		height: .2em;
+		width: .2em;
+		border-radius: .7em;
+		background: black;
+		position: absolute;
+		top: 10px;
+	}
+
+	@keyframes spin {
+	  	0% {
+	    	transform: rotate(0deg);
+	  	}
+	  	100% {
+	  		transform: rotate(360deg);
+	  	}
+	}
+}

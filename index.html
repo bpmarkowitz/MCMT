@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MCMT</title>
+    <style>
+
+    </style>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="screen.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <main>
+      <h2>HDHomeRun MCMT</h2>
+      <p>Multi Channel Modifier Tool (MCMT) is a simple tool for the SiliconDust HDHomeRun to let you quickly disable all SD or DRM channels.</p>    
+      <ul>
+        <li>This was like 10 minute hack, and I'm not a coder.</li>
+        <li>Use at your own risk.</li>
+        <li>This only works if you have one HDHomeRun.</li>        
+      </ul>      
+      
+      <div id="looking">       
+        <h3>Searching for HDHomeRun <div id="spinner"></div></h3>                  
+        <ul>          
+          <li>Please make sure you're on the same network as your HDHomeRun.</li>
+        </ul>         
+      </div>
+      <div id="found">       
+        <h3>HDHomeRun Found</h3>           
+        <ul id="hdhomerun_details">          
+          <li id="local_IP"></li>
+          <li id="base_URL"></li>
+        </ul>
+      </div>
+      <div id="actions">       
+        <h3>Actions</h3>   
+        <p>These actions don't provide any feedback they are working, check your <a href="" id="lineup_link">lineup</a> to verify they work.</p>
+        <div class="button" id="disableSD">Disable All SD Channels</div>
+        <div class="button" id="disableDRM" >Disable All DRM Channels</div>
+        <div class="button" id="enableAll">Enable All Channels</div>        
+      </div>      
+      <small>&copy; Copyright 2019 <a href="http://www.bpmarkowitz.com">Ben Markowitz</a> 🖖</small>
+    </main>
+      <script>
+      $( document ).ready(function() {    
+        ip = "";
+
+        setTimeout(
+        function() 
+        {
+          discoverHDHomeRun()
+        }, 3000);
+
+        function discoverHDHomeRun() {
+          $.getJSON( "http://ipv4-api.hdhomerun.com/discover", function( data ) {                        
+              $("#local_IP").html("Local IP: "+data[0].LocalIP);
+              ip = data[0].LocalIP
+              $("#base_URL").html("Base URL: <a href='"+data[0].BaseURL+"'>"+data[0].BaseURL+"</a>");
+              $("#found").fadeIn();
+              $("#looking").hide();                  
+              $("#actions").fadeIn();                 
+              $("#lineup_link").attr("href", "http://"+ip+"/lineup.html")
+          });
+        }
+
+        $("#disableSD").click(function(){
+          $.getJSON( "http://"+ip+"/lineup.json?show=all", function( data ) {  
+            $.each(data, function(i, item) {
+              if(data[i].Subscribed == undefined) {
+                if(data[i].HD == undefined) {
+                  $.post( "http://10.0.0.15/lineup.post?favorite=x"+data[i].GuideNumber, function( data ) {});
+                }
+              }            
+            });
+          });
+        });
+
+        $("#disableDRM").click(function(){        
+          $.getJSON( "http://"+ip+"/lineup.json?show=all", function( data ) {
+            $.each(data, function(i, item) {
+              if(data[i].Subscribed == undefined) {
+                if(data[i].DRM) {
+                  $.post( "http://10.0.0.15/lineup.post?favorite=x"+data[i].GuideNumber, function( data ) {});
+                }
+              }
+            });
+          });
+        });
+
+        $("#enableAll").click(function(){        
+          $.getJSON( "http://"+ip+"/lineup.json?show=all", function( data ) {
+            $.each(data, function(i, item) {
+              if(data[i].Subscribed == undefined) {                
+                  $.post( "http://10.0.0.15/lineup.post?favorite=-"+data[i].GuideNumber, function( data ) {});
+              }        
+            });
+          });
+        });                        
+      });
+
+    </script>
+  </body>
+</html>
