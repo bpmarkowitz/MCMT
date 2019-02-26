@@ -1,5 +1,5 @@
 # HDHomeRun MCMT
-Multi Channel Modifier Tool (MCMT) is a simple tool for the SiliconDust HDHomeRun to let you quickly disable all SD or DRM channels.
+Multi Channel Modifier Tool (MCMT) is a simple tool for the SiliconDust HDHomeRun to let you quickly disable all SD or DRM channels without having to click each one individually in the web ui. 
 
 - This was like 10 minute hack.
 - Use at your own risk, but it should be easy to revert any changes you make.
